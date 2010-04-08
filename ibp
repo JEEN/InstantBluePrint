@@ -1,7 +1,10 @@
+#!/usr/bin/perl
+
+eval 'exec /usr/boin/perl -S $- ${1+"$@"}' if $0;
+
 package App::InstantBluePrint::script;                                                                                                 
 use strict;
 use warnings;
-use Cwd ();
 use Getopt::Long;
 use LWP::UserAgent;
 use File::Path;
@@ -12,14 +15,14 @@ $VERSION = eval $VERSION;
 sub new {
     my $class = shift;
     bless {
-    	  argv       => [],
-	  	     library    => undef,
-		     		compressed => undef,
-					   doctype    => undef,
-					           extension  => undef,
-						   	      action     => undef,
-							      		 name       => undef,
-									 }, $class;
+     argv       => [],
+     library    => undef,
+     compressed => undef,
+     doctype    => undef,
+     extension  => undef,
+     action     => undef,
+     name       => undef, 
+    }, $class;
 }
 
 sub parse_options {
