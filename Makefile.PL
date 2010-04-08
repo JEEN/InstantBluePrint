@@ -1,13 +1,9 @@
 use inc::Module::Install;
-name 'ibp_';
-all_from 'lib/ibp_.pm';
+name 'ibp';
+license 'perl';
+all_from 'ibp';
 
-# requires '';
+requires 'LWP::UserAgent';
 
-tests 't/*.t';
-author_tests 'xt';
-
-test_requires 'Test::More';
-auto_set_repository;
-auto_include;
+install_script 'ibp';
 WriteAll;

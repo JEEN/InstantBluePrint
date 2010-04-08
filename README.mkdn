@@ -1,0 +1,13 @@
+## Description
+
+Instant Blueprint allows you to quickly create a web project framework with valid HTML/XHTML and CSS in only a matter of seconds, allowing you to get your project up and running faster!
+
+## Synopsis
+
+    ibp Project      generate a new project(html/css/js set)
+    ibp --help       help
+
+## PP
+
+[InstantBluePrint](http://instantblueprint.com)
+

@@ -1,0 +1,125 @@
+package App::InstantBluePrint::script;                                                                                                 
+use strict;
+use warnings;
+use Cwd ();
+use Getopt::Long;
+use LWP::UserAgent;
+use File::Path;
+
+our $VERSION = "0.0001";
+$VERSION = eval $VERSION;
+
+sub new {
+    my $class = shift;
+    bless {
+    	  argv       => [],
+	  	     library    => undef,
+		     		compressed => undef,
+					   doctype    => undef,
+					           extension  => undef,
+						   	      action     => undef,
+							      		 name       => undef,
+									 }, $class;
+}
+
+sub parse_options {
+   my $self = shift;
+
+   local @ARGV = @{ $self->{argv} };
+   push @ARGV, @_;
+   
+   Getopt::Long::GetOptions(
+   "e|extension=s" => \$self->{extension},
+   "j|js=s"        => \$self->{library},
+   "c|compress"    => sub { $self->{compressed} = '.min'; },
+   "t|doctype=s"   => \$self->{doctype},
+   "h|help"        => sub { $self->{action} = 'help'; },
+    );
+    $self->{argv} = \@ARGV;
+}
+			
+sub run {
+    my $self = shift;
+    
+    if (my $action = $self->{action}) {
+      $self->$action() and return;
+    }
+    
+    $self->help(1) unless @{ $self->{argv} };
+    
+    my $name = shift @{ $self->{argv} };
+    $self->install($name);
+}
+
+sub help {
+    my $self = shift;
+
+    if ($_[0]) {	
+      die <<USAGE;
+Usage: ibp [options] ProjectName
+
+Try 'ibp --help' for more options.
+USAGE
+    }
+
+    print <<HELP;
+Usage: ibp [options] ProjectName
+
+Options:
+  -j, --js       Choose the javascript library you wish to use (default: jQuery)
+                  [jQuery,MooTools,ProtoType,YUI]
+  -t, --doctype  Choose the document type you wish to use
+                   xs = XHTML 1.0 Strict  (default)
+                   hs = HTML 4.01 Strict
+                   xt = XHTML 1.0 Transitional
+                   ht = HTML 4.01 Transitional
+                   xf = XHTML 1.0 Frameset
+                   hf = HTML 4.01 Frameset
+  -c, --compress  Compress the javascript library
+  -e, --extention Choose the html file extention (default: html)
+
+HELP
+
+}
+
+sub install {
+    my ($self,$name) = @_;
+
+    my $library = lc $self->{library};
+    my $doctype = lc $self->{doctype};
+    my $ext     = lc $self->{extension};
+    $library = 'jquery' unless $library =~ /^(jquery|mootools|yui|prototype)$/;
+    $doctype = 'xs'     unless $doctype =~ /^(xs|hs|xt|ht|xf|hf)$/;
+    $ext     = 'html'   unless $ext;
+
+    my %param = (
+    proj_name => $name,
+    doc       => $doctype,
+    Library   => $library,
+    LibraryC  => $self->{compressed},
+    input     => 'content',
+    Centered  => 'No',
+    ext       => $ext,
+    submit    => '',
+    );
+
+    my $ua = LWP::UserAgent->new();
+    my $res = $ua->post("http://instantblueprint.com/index.php", \%param);
+
+    my $content = $res->content;
+    my ($file) = $content =~ /download\/(.*\.zip)/;
+
+    my $zip = sprintf 'http://instantblueprint.com/download/%s', $file;
+
+    $ua->mirror($zip, 'bp.zip');
+
+    File::Path::mkpath($name, 0, 0777);
+    system("unzip -q bp.zip -d ".$name);
+    system('rm -rf bp.zip');
+}
+
+package main;
+
+my $ibp = App::InstantBluePrint::script->new;
+$ibp->parse_options(@ARGV);
+$ibp->run;
