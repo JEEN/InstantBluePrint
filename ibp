@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
-eval 'exec /usr/bin/perl -S $- ${1+"$@"}' if $0;
+eval 'exec /usr/bin/perl  -S $0 ${1+"$@"}'
+    if 0; # not running under some shell  
 
 package App::InstantBluePrint::script;                                                                                                 
 use strict;
