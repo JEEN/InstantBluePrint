@@ -1,0 +1,48 @@
+js:
+  "extjs":
+    url: http://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js
+    name: Ext Core
+    version: 3.1.0
+  "prototype":
+    url: http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js
+    name: Prototype
+    version: 1.6.1.0
+  "mootools":
+    url: http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js
+    name: MooTools
+    version: 1.2.4
+  "yui":
+    url: http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js
+    name: Yahoo! User Interface Library (YUI)
+    version: 3.0.0
+  "scriptaculous":
+    url: http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js
+    name: script.aculo.us
+    version: 1.8.3
+  "dojo":
+    url: http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/dojo.xd.js
+    name: Dojo
+    version: 1.4.1
+  "swfobject":
+    url: http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js
+    name: SWFObject
+    version: 2.2
+  "jquery":
+    url: http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js
+    name: jQuery
+    version: 1.4.2
+  "jquery.ui":
+    url: http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js
+    name: jQuery UI
+    version: 1.8.0
+  "jquery.validate":
+    url: http://ajax.microsoft.com/ajax/jQuery.Validate/1.6/jQuery.Validate.min.js
+    name: jQuery Validate
+    version: 1.6
+
+css:
+  "jquery.ui.base":
+    url: http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/base/jquery-ui.css
+  "yui.css.reset":
+    url: http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css
+
